@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        body{
+            background-color: gray;
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+        .leftPart{
+            flex-basis: 50%;
+            height: 100%;
+            background-color: gray;
+            display: flex;
+            flex-direction: column;
+        }
+        .content{
+            flex-basis: 33%;
+            background-color: blue;
+        }
+        .rightPart{
+            flex-basis: 50%;
+            height: 100%;
+            background-color: black;
+        }
+        .leftPart .content label{
+            background-color: black;
+            display: block;
+            color: white;
+            padding: 10px 0px;
+        }
+        .leftPart .content textarea{
+            width: 100%;
+            height: 90%;
+            outline: none;
+            border: none;
+        }
+        .rightPart label{
+            background-color: rgb(82, 82, 217);
+            display: block;
+            color: white;
+            padding: 10px 0px;
+        }
+        .rightPart iframe{
+            display: block;
+            width: 99%;
+            height: 90%;
+            margin-top: 15px;
+            margin-left: 2.5px;
+            border: 3px solid lightgrey;
+            box-sizing: border-box;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="leftPart">
+        <div class="content">
+            <label class="label"><i class="fa-brands fa-html5"></i></label>
+            <textarea></textarea>
+        </div>
+        <div class="content">
+            <label class="label"><i class="fa-brands fa-css"></i></i></label>
+            <textarea></textarea>
+        </div>
+        <div class="content">
+            <label class="label"><i class="fa-brands fa-square-js"></i></i></label>
+            <textarea></textarea>
+        </div>
+    </div>
+    <div class="rightPart">
+        <label>OUTPUT</label>
+        <iframe id="output"></iframe>
+    </div>
+    <script>
+        let output= document.querySelector('#output');
+        let allInput = document.querySelectorAll('.leftPart textarea')
+        let htmlCode,cssCode,jsCode='';
+        allInput.forEach((el,index)=>{
+            el.addEventListener('keyup', ()=>{
+                if (index==0){
+                    htmlCode=el.value;
+                }
+                if (index==1){
+                    cssCode=el.value;
+                }
+                if (index==2){
+                    jsCode=el.value;
+                }
+                output.contentDocument.body.innerHTML=htmlCode;
+                output.contentDocument.head.innerHTML=`<style>${cssCode}</style>`;
+                output.contentWindow.eval(jsCode);
+            })
+        })
+    </script>
+</body>
+</html>
